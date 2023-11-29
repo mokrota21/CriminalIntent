@@ -1,5 +1,6 @@
 package com.example.criminalintent
 
+import android.icu.text.DateFormat
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.text.Editable
@@ -7,10 +8,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 
 class CrimeFragment : Fragment() {
     private lateinit var mCrime: Crime
+    private lateinit var mDateButton: Button
+    private lateinit var mSolvedCheckBox: CheckBox
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,15 @@ class CrimeFragment : Fragment() {
                 // This space intentionally left blank
             }
         })
+
+        mDateButton = v.findViewById(R.id.crime_date)
+        mDateButton.text = DateFormat.getPatternInstance(DateFormat.YEAR_MONTH_WEEKDAY_DAY).format(mCrime.getDate())
+        mDateButton.isEnabled = false
+
+        mSolvedCheckBox = v.findViewById(R.id.crime_solved)
+        mSolvedCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            mCrime.setSolved(isChecked)
+        }
 
         return v
     }
