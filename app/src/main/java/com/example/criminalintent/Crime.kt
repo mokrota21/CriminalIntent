@@ -3,16 +3,11 @@ package com.example.criminalintent
 import java.util.Date
 import java.util.UUID
 
-class Crime {
-    private val mID: UUID
+class Crime() {
+    private val mID: UUID = UUID.randomUUID()
     private lateinit var mTitle: String
-    private lateinit var mDate: Date
+    private var mDate: Date = Date()
     private var mSolved: Boolean = false
-
-    constructor() {
-        mID = UUID.randomUUID()
-        mDate = Date()
-    }
 
     fun isSolved(): Boolean {
         return mSolved
